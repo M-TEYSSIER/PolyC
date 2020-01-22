@@ -2,6 +2,7 @@
 #include <time.h>
 #include <stdlib.h>
 
+
 int main(){
 	int M,N,tab[60][60], Yd,Xd; // Init Tab[MAX][MAX]
 	char c; // Pour le WHILE(){}
@@ -37,8 +38,8 @@ int main(){
 	for(int i=0; i<(N*M/5) ; i++){
 		tab[rand() % (0+M)][rand() % (0+N)] = -1;
 	}
-	tab[Xd][Yd]=5;
-	tab[rand()%(0+M)][rand()%(0+N)]=-3;
+	tab[Xd][Yd]=1;// Point de départ
+	tab[rand()%(0+M)][rand()%(0+N)]=-2;// Point d'arrivé
 
 	for(int i=0;i<=M;i++){
 		for(int j=0;j<=N;j++){
@@ -54,6 +55,16 @@ int main(){
 	// Programme genere le plateau
 	/***********************************************/
 
-	while( position !=  )		
+	//Phase d'expansion
+	int a, b, flags;
+	a=b=flags=0;
+	while( tab[Xd+a][Yd+b] != -1 ){ // Tant qu
+		if(tab[Xd+a][Yd+b] != -1){
+			flags++;
+			printf("flags: %d\n", flags);
+			tab[Xd+a][Yd+b]=flags;	
+		}
+	}
+	printf("flags: %d",flags);	
 
 }

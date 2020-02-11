@@ -43,10 +43,9 @@ void Decrypt(char *T){
 	}
 }
 
-void LUT(char *cle){
+void LUT(char *cle, char tab[26]){
 	// La cle va débuter l'alphabet et creer la suite de l'alphabet 
 	// en omettant les lettres presentent dans la cle.
-	char tab[26]=""; 
 	strcat(tab,cle);
 	printf("%s\n",tab);
 
@@ -71,8 +70,19 @@ void LUT(char *cle){
 		}
 		tab[i]=(char)lettre;
 	}
+	printf("print char by char:");
 	for(int i=0;i<26;i++){
 		printf("%c",tab[i]);
+	}
+	printf("\nprint string %s", tab);
+	printf("\n");
+}
+
+void EncryptLigne3(char *T, char *cle){
+	// T est un tab qui va etre chiffre avec l'alphabet modifier via cle
+	printf("EL3-cle: %s\n", cle);
+	for(int i = 0; i<strlen(cle)-1;i++){
+		printf("%c",cle[i]);
 	}
 	printf("\n");
 }
@@ -87,7 +97,10 @@ int main(){
 	EncryptLigne2(Tab, 3);
 	printf("\n");
 	char cle[] = "ZEPHIR";
-	LUT(cle);	
+	char tableauLUT[26]="";
+	LUT(cle, tableauLUT);
+	printf("main: %s\n", tableauLUT);
+	EncryptLigne3(Tab, tableauLUT);	
 	return 0;
 }
 

@@ -43,29 +43,38 @@ void Decrypt(char *T){
 	}
 }
 
-char** LUT(char *cle){
+void LUT(char *cle){
 	// La cle va débuter l'alphabet et creer la suite de l'alphabet 
 	// en omettant les lettres presentent dans la cle.
-	char Tab[26];
-	strcat(Tab, cle);
-	//Tab+=cle;
-	int flags=0, lettre=64;
+	char tab[26]=""; 
+	strcat(tab,cle);
+	printf("%s\n",tab);
+
+	for(int i=0; i<strlen(cle); i++){
+		printf("%c",tab[i]);	
+	}
+	printf("\n");	
+	printf("strlen(cle): %ld\n", strlen(cle)-1);
+
 	for(int i=strlen(cle);i<26;i++){
-		while(flags != 0){ // Gestion de lettres deja dans le Tab[]
+		char lettre ='A'-1;
+		int flags=1;
+		while(flags != 0){ 
+			flags=0;
+			// Gestion de lettres deja dans le Tab[]
 			lettre++;
-			for(int a=i-1; a != 0; a--){
-				if((int)Tab[a]==lettre){
+			for(int a=i; a >= 0; a--){
+				if((int)tab[a]==lettre){
 					flags++;
 				}
 			}
 		}
-		Tab[i]=(char)lettre;
+		tab[i]=(char)lettre;
 	}
 	for(int i=0;i<26;i++){
-		printf("%c",Tab[i]);
+		printf("%c",tab[i]);
 	}
 	printf("\n");
-	return *Tab;
 }
 
 int main(){
@@ -77,7 +86,8 @@ int main(){
 	// Définir le décalage (X) dans la fonction EncryptLigne2(Tab, X);
 	EncryptLigne2(Tab, 3);
 	printf("\n");
-	LUT("macle");	
+	char cle[] = "ZEPHIR";
+	LUT(cle);	
 	return 0;
 }
 

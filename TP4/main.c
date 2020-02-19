@@ -74,8 +74,7 @@ void LUT(char *cle, char tab[26]){
 	for(int i=0;i<26;i++){
 		printf("%c",tab[i]);
 	}
-	printf("\nprint string %s", tab);
-	printf("\n");
+	printf("\nprint string %s\n", tab);
 }
 
 void EncryptLigne3(char *T, char *cle){
@@ -85,6 +84,32 @@ void EncryptLigne3(char *T, char *cle){
 		printf("%c",cle[i]);
 	}
 	printf("\n");
+}
+
+void EncryptFile(FILE *in, FILE *out, int methode){
+	// Chiffrement par César, décalage ou substitution avec cle de chiffrement
+	// Choix par l usager
+	char chaine[100];
+	while(feof(in)){
+		fgets(chaine,100,in);
+	}
+	switch(methode){
+		case 1:
+			printf("Méthode César");
+			EncryptLigne1(chaine);
+			break;
+		case 2:
+			printf("Méthode par décalage via clé.\n");
+			printf("Veuillez saisir la clé pour le décalage: ");
+			char b[50];
+			scanf("%s", b);
+			EncryptLigne3(chaine, b);
+			break;
+		case 3:
+			printf("Méthode par substitution avec clé de chiffrement");
+			break;
+	}
+	strcpy(out, chaine); 
 }
 
 int main(){
@@ -101,6 +126,21 @@ int main(){
 	LUT(cle, tableauLUT);
 	printf("main: %s\n", tableauLUT);
 	EncryptLigne3(Tab, tableauLUT);	
+	// Ajout du menu de selection de methode de chiffrement 
+	// afin de chiffrer le fichier
+	int a=0;
+	printf("Quel méthode de chiffrement souhaitez vous?\n1/ Code César\n2/Décalage\n3/Substiution avec clé de chiffrement\nRéponse:");
+	scanf("%d", &a);
+	printf("\n");
+	char FichierEnClair[200]="";
+	printf("Veuillez saisir le chemin de votre fichier:");
+	scanf("%s",FichierEnClair);
+	char FichierChiffre[]="Fichier.Encrypt";
+	//strcat(FichierChiffre, FichierEnClair);
+	//strcat(FichierChiffre, ".encrypt");
+	FILE *filein = fopen(FichierEnClair, "r");
+	FILE *fileout= fopen(FichierChiffre, "w");
+	EncryptFile(filein, fileout, a);
 	return 0;
 }
 
